@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" name="StatusPanel" position_real="0 0.0925926 0.151042 0.117593">
+        <Property key="NeedKey" value="false" />
+        <Property key="NeedMouse" value="false" />
+        <Widget type="Widget" skin="HudBackgroundLarge" position_real="0.172414 0 0.827586 0.314961">
+            <Widget type="Widget" skin="HudBackgroundShadowLarge" position_real="0.158333 0.05 0.833333 0.9">
+                <Widget type="ProgressBar" skin="HUDProgressBarRedLarge" name="HealthLoss" position_real="0.015 0.0833333 0.97 0.833333">
+                    <Property key="Range" value="100" />
+                    <Property key="RangePosition" value="100" />
+                    <Property key="Alpha" value="1" />
+                    <Widget type="ProgressBar" skin="HUDProgressBarGreen" name="Health" position_real="0 0 1 1">
+                        <Property key="Range" value="100" />
+                        <Property key="RangePosition" value="50" />
+                        <Property key="InheritsAlpha" value="false" />
+                        <Widget type="TextBox" skin="TextBox" name="HealthLossText" position_real="0.71134 0 0.257732 1">
+                            <Property key="TextAlign" value="Right VCenter" />
+                            <Property key="Caption" value="-50" />
+                            <Property key="FontName" value="InventoryItemCount" />
+                            <Property key="TextShadow" value="true" />
+                            <Property key="TextColour" value="1 1 0.752941" />
+                            <Property key="InheritsAlpha" value="false" />
+                        </Widget>
+                    </Widget>
+                </Widget>
+            </Widget>
+            <Widget type="ImageBox" skin="ImageBox" name="HealthIcon" position_real="0.0416667 0.25 0.0833333 0.5">
+                <Property key="ImageTexture" value="gui_icon_hud_health.png" />
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="HudBackgroundSmall" position_real="0.172414 0.393701 0.827586 0.15748">
+            <Widget type="Widget" skin="HudBackgroundShadowSmall" position_real="0.158333 0.1 0.833333 0.8">
+                <Widget type="ProgressBar" skin="HUDProgressBarRedSmall" name="FoodLoss" position_real="0.015 0.1875 0.97 0.625">
+                    <Property key="Range" value="100" />
+                    <Property key="RangePosition" value="100" />
+                    <Widget type="ProgressBar" skin="HUDProgressBarYellow" name="Food" position_real="0 0 1 1">
+                        <Property key="Range" value="100" />
+                        <Property key="RangePosition" value="50" />
+                        <Property key="InheritsAlpha" value="false" />
+                    </Widget>
+                </Widget>
+            </Widget>
+            <Widget type="ImageBox" skin="ImageBox" name="FoodIcon" position_real="0.0416667 0 0.0833333 1">
+                <Property key="ImageTexture" value="gui_icon_hud_food.png" />
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="HudBackgroundSmall" position_real="0.172414 0.629921 0.827586 0.15748">
+            <Widget type="Widget" skin="HudBackgroundShadowSmall" position_real="0.158333 0.1 0.833333 0.8">
+                <Widget type="ProgressBar" skin="HUDProgressBarRedSmall" name="WaterLoss" position_real="0.015 0.1875 0.97 0.625">
+                    <Property key="Range" value="100" />
+                    <Property key="RangePosition" value="100" />
+                    <Widget type="ProgressBar" skin="HUDProgressBarBlue" name="Water" position_real="0 0 1 1">
+                        <Property key="Range" value="100" />
+                        <Property key="RangePosition" value="50" />
+                        <Property key="InheritsAlpha" value="false" />
+                    </Widget>
+                </Widget>
+            </Widget>
+            <Widget type="ImageBox" skin="ImageBox" name="WaterIcon" position_real="0.0416667 0 0.0833333 1">
+                <Property key="ImageTexture" value="gui_icon_hud_water.png" />
+            </Widget>
+        </Widget>
+    </Widget>
+    <Widget type="Widget" skin="PanelEmpty" name="TimePanel" position_real="0 0 0.078125 0.0740741">
+        <Property key="NeedKey" value="false" />
+        <Property key="NeedMouse" value="false" />
+        <Widget type="TextBox" skin="TextBox" name="Time" position_real="0.333333 0.625 0.666667 0.375">
+            <Property key="FontName" value="InventorySearchText" />
+            <Property key="Caption" value="00:00" />
+            <Property key="NeedKey" value="false" />
+            <Property key="NeedMouse" value="false" />
+            <Property key="TextShadow" value="true" />
+        </Widget>
+    </Widget>
+    <Widget type="Widget" skin="PanelEmpty" name="BindingPanel" position_real="0 0.25 0.113542 0.0759259">
+        <Property key="NeedKey" value="false" />
+        <Property key="NeedMouse" value="false" />
+        <Widget type="Button" skin="HudBackgroundIcon" name="InventoryIconBackground" position_real="0 0 0.256881 0.682927">
+            <Widget type="ImageBox" skin="ImageBox" position_real="0.232143 0.232143 0.535714 0.535714">
+                <Property key="ImageTexture" value="gui_icon_hud_backpack.png" />
+            </Widget>
+        </Widget>
+        <Widget type="Button" skin="HotbarItemKeybindingBackground" name="InventoryBinding" position_real="0.0779817 0.560976 0.100917 0.195122">
+            <Property key="Caption" value="I" />
+            <Property key="FontName" value="HotbarBinding" />
+            <Property key="TextAlign" value="Center" />
+        </Widget>
+        <Widget type="Button" skin="HudBackgroundIcon" name="LogbookIconBackground" position_real="0.266055 0 0.256881 0.682927">
+            <Widget type="ImageBox" skin="ImageBox" position_real="0.232143 0.232143 0.535714 0.535714">
+                <Property key="ImageTexture" value="gui_icon_hud_logbook.png" />
+            </Widget>
+        </Widget>
+        <Widget type="Button" skin="HotbarItemKeybindingBackground" name="LogbookBinding" position_real="0.344037 0.560976 0.100917 0.195122">
+            <Property key="Caption" value="L" />
+            <Property key="FontName" value="HotbarBinding" />
+            <Property key="TextAlign" value="Center" />
+        </Widget>
+        <Widget type="Button" skin="HudBackgroundIcon" name="HandbookIconBackground" position_real="0.53211 0 0.256881 0.682927">
+            <Widget type="ImageBox" skin="ImageBox" position_real="0.232143 0.232143 0.535714 0.535714">
+                <Property key="ImageTexture" value="gui_icon_hud_handbook.png" />
+            </Widget>
+        </Widget>
+        <Widget type="Button" skin="HotbarItemKeybindingBackground" name="HandbookBinding" position_real="0.610092 0.560976 0.100917 0.195122">
+            <Property key="Caption" value="H" />
+            <Property key="FontName" value="HotbarBinding" />
+            <Property key="TextAlign" value="Center" />
+        </Widget>
+    </Widget>
+    <Widget type="Widget" skin="PanelEmpty" name="BreathPanel" position_real="0.15625 0 0.125 0.101852">
+        <Property key="NeedKey" value="false" />
+        <Property key="NeedMouse" value="false" />
+        <Widget type="Widget" skin="HudBackgroundLarge" position_real="0 0.727273 1 0.272727">
+            <Widget type="Widget" skin="HudBackgroundShadowLarge" position_real="0.158333 0.0666667 0.833333 0.866667">
+                <Widget type="ProgressBar" skin="HUDProgressBarLightBlue" name="Breath" position_real="0.015 0.115385 0.97 0.769231">
+                    <Property key="Range" value="195" />
+                    <Property key="RangePosition" value="194" />
+                </Widget>
+            </Widget>
+            <Widget type="ImageBox" skin="ImageBox" name="BreathIcon" position_real="0.05 0.133333 0.0833333 0.666667">
+                <Property key="ImageTexture" value="gui_icon_hud_breath.png" />
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>
