@@ -260,9 +260,19 @@ function SurvivalPlayer.cl_localPlayerUpdate( self, dt )
 		if character then
 			local homeOffset = sm.vec3.new(-2356,-2624,0)--NInd crash site coordinates
 			if g_NIndMapData["home"] then homeOffset = g_NIndMapData["home"] end
-			local text = "Dir:"
+			local text = ""
+			local chPos = character.worldPosition
 			local direction = character.direction
 			local yaw = math.atan2( direction.y, direction.x )
+			local hComp = homeOffset - chPos
+			local aim = 0
+			if hComp:length() > 1 then
+				local fDir = sm.vec3.new(direction.x, direction.y, 0)
+				local fhC = sm.vec3.new(hComp.x, hComp.y, 0)
+				aim = math.acos(fDir:normalize():dot(fhC:normalize()))
+				local crs = fDir:normalize():cross(fhC:normalize())
+				if crs.z < 0 then aim = -aim end
+			end
 			if math.abs( yaw ) < math.pi * 0.25 then
 				text = text.." E"
 			elseif math.abs( yaw ) > math.pi * 0.75 then
@@ -272,8 +282,10 @@ function SurvivalPlayer.cl_localPlayerUpdate( self, dt )
 			else
 				text = text.." S"
 			end
-			text = text .. " Pos: (" .. math.floor( character.worldPosition.x - homeOffset.x )..","..math.floor( character.worldPosition.y - homeOffset.y )..")"
-			text = text .. " Cell: (" .. math.floor( character.worldPosition.x  / CellSize )..","..math.floor( character.worldPosition.y  / CellSize )..")"
+			text = text .. " A:" .. math.floor(math.deg(aim))
+			text = text .. " D:" .. math.floor((chPos - homeOffset):length())
+			text = text .. " P:(" .. math.floor( chPos.x - homeOffset.x )..","..math.floor( chPos.y - homeOffset.y )..")"
+			text = text .. " C:(" .. math.floor( chPos.x  / CellSize )..","..math.floor( chPos.y  / CellSize )..")"
 			self.cl.hud:setText( "NIndMap", text )
 		end
 		--NInd edited to here end
