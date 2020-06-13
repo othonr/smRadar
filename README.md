@@ -4,7 +4,7 @@ This adds a very simple radar interface to the survival version of the game
 
 The Radar:
 
-![GitHub Logo](/sm_02.jpg)
+![Radar interface](/sm_02.jpg)
 
 It also adds the chat command `/map` so that you can offset where you want the radar to point to
 
@@ -21,4 +21,13 @@ Also a little bit of the road map for this tool:
 - Add enemy detection
 - Make an interface
 
-To install just clone or download this repository and replace the files in your Scrap Mechanic instalation directory **(BackUp the original ones first, obviously)**
+## To install: 
+```
+Just clone or download this repository
+Replace the files in your Scrap Mechanic instalation directory
+(BackUp your original ones first, obviously)
+```
+
+
+If you are curious on how it works, it is just some basic trigonometry:
+![Math for the radar](/sm_03.png)
