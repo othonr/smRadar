@@ -32,6 +32,9 @@ If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg
 - Add enemy detection
 
 ### Changelog:
+- v1.0.2:
+  - Position now stays fixed to map coordinates
+
 - v1.0.1:
   - Initial Release
   - Angle to Home
