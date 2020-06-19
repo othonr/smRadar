@@ -32,14 +32,15 @@ If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg
 - Add enemy detection
 
 ### Changelog:
-#### v_0.0.03:
-- Angle to Home
-- Distance to Home
+- v1.0.1:
+  - Initial Release
+  - Angle to Home
+  - Distance to Home
 
-#### v_0.0.02:
-- Home zeroing
+- v0.0.2:
+  - Home zeroing
 
-#### v_0.0.01:
-- Compass
-- Position
-- Cell
+- v0.0.1:
+  - Compass
+  - Position
+  - Cell
