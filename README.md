@@ -4,7 +4,7 @@ This adds a very simple radar interface to the survival version of the game
 
 The Radar:
 
-![Radar interface](/sm_02.jpg)
+![Radar interface](/GitHubStuff/sm_02.jpg)
 
 ## To install: 
 ```
@@ -19,8 +19,11 @@ To use type in the chat:
 
 I am planing on making a better interface with graphical elements, but i'm having a bit of trouble with it, since i'm confident in python but the game comes in lua, if you want to help me with that send me an email.
 
-Also a little bit of the road map for this tool (if the devs don't make their own before):
+Steam Workshop link: https://steamcommunity.com/sharedfiles/filedetails/?id=2128739946
 
+If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg on steam FC:**`53124465`**
+
+### Road map for this tool (if the devs or someone else don't make their own before):
 - Make an interface
 - Add multiplayer support
 - Save positions and remember them for each save
@@ -28,6 +31,15 @@ Also a little bit of the road map for this tool (if the devs don't make their ow
 - Make a hotkey instead of chat commands
 - Add enemy detection
 
-Steam Workshop link: https://steamcommunity.com/sharedfiles/filedetails/?id=2128739946
+### Changelog:
+#### v_0.0.03:
+- Angle to Home
+- Distance to Home
 
-If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg on steam FC:**`53124465`**
+#### v_0.0.02:
+- Home zeroing
+
+#### v_0.0.01:
+- Compass
+- Position
+- Cell

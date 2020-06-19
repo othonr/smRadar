@@ -284,7 +284,7 @@ function SurvivalPlayer.cl_localPlayerUpdate( self, dt )
 			end
 			text = text .. " A:" .. math.floor(math.deg(aim))
 			text = text .. " D:" .. math.floor((chPos - homeOffset):length())
-			text = text .. " P:(" .. math.floor( chPos.x - homeOffset.x )..","..math.floor( chPos.y - homeOffset.y )..")"
+			text = text .. " P:(" .. math.floor( chPos.x )..","..math.floor( chPos.y )..")"
 			text = text .. " C:(" .. math.floor( chPos.x  / CellSize )..","..math.floor( chPos.y  / CellSize )..")"
 			self.cl.hud:setText( "NIndMap", text )
 		end
