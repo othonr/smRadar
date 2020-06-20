@@ -32,6 +32,8 @@ If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg
 - Add enemy detection
 
 ### Changelog:
+- v1.0.3:
+  - New games now don't start as devs
 - v1.0.2:
   - Position now stays fixed to map coordinates
 
