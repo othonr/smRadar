@@ -130,6 +130,7 @@ function SurvivalGame.client_onCreate( self )
 		sm.game.bindChatCommand( "/enablepathpotatoes", { { "bool", "enable", true } }, "cl_onChatCommand", "Creates path nodes at potato hits in overworld and links to previous node" )
 		--NInd Map command binder start
 		sm.game.bindChatCommand( "/map", {{ "string", "Command", true }, { "string", "Name", true }}, "cl_onChatCommand", "NInd Map, use 'home'" )
+		g_survivalDev = false
 		--NInd Map command binder end
 	end
 
