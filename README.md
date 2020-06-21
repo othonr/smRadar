@@ -1,6 +1,6 @@
 # Scrap Mechanic Simple Radar
-#### Since the devs haven't added this feature yet, i made my own...
-This adds a very simple radar interface to the survival version of the game
+
+#### For the Beta Test version go here: https://github.com/othonr/smRadar/tree/BETA-0.4.6-Test-575
 
 The Radar:
 
