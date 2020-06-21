@@ -123,9 +123,9 @@ function SurvivalPlayer.client_onCreate( self )
 		self.cl.hud = sm.gui.createSurvivalHudGui()
 		self.cl.hud:open()
 
-		--self.cl.hungryEffect = sm.effect.createEffect( "Mechanic - StatusHungry" )
-		--self.cl.thirstyEffect = sm.effect.createEffect( "Mechanic - StatusThirsty" )
-		--self.cl.underwaterEffect = sm.effect.createEffect( "Mechanic - StatusUnderwater" )
+		self.cl.hungryEffect = sm.effect.createEffect( "Mechanic - StatusHungry" )
+		self.cl.thirstyEffect = sm.effect.createEffect( "Mechanic - StatusThirsty" )
+		self.cl.underwaterEffect = sm.effect.createEffect( "Mechanic - StatusUnderwater" )
 	end
 
 	self:cl_init()
@@ -202,21 +202,26 @@ function SurvivalPlayer.client_onClientDataUpdate( self, data )
 			self.cl.revivalChewCount = 0
 		end
 
-		--if data.stats.breath <= 15 and not self.cl.underwaterEffect:isPlaying() then
-		-- self.cl.underwaterEffect:start()
-		--elseif data.stats.breath > 15 and not self.cl.underwaterEffect:isPlaying() then
-		-- self.cl.underwaterEffect:stop()
-		--end
-		--if data.stats.food <= 15 and not self.cl.hungryEffect:isPlaying() then
-		-- self.cl.hungryEffect:start()
-		--elseif data.stats.food > 15 and not self.cl.hungryEffect:isPlaying() then
-		-- self.cl.hungryEffect:stop()
-		--end
-		--if data.stats.water <= 15 and not self.cl.thirstyEffect:isPlaying() then
-		-- self.cl.thirstyEffect:start()
-		--elseif data.stats.water > 15 and not self.cl.thirstyEffect:isPlaying() then
-		-- self.cl.thirstyEffect:stop()
-		--end
+		local charParam = self.player:isMale() and 1 or 2
+		self.cl.underwaterEffect:setParameter( "char", charParam )
+		self.cl.hungryEffect:setParameter( "char", charParam )
+		self.cl.thirstyEffect:setParameter( "char", charParam )
+
+		if data.stats.breath <= 15 and not self.cl.underwaterEffect:isPlaying() and data.isConscious then
+			self.cl.underwaterEffect:start()
+		elseif ( data.stats.breath > 15 or not data.isConscious ) and self.cl.underwaterEffect:isPlaying() then
+			self.cl.underwaterEffect:stop()
+		end
+		if data.stats.food <= 5 and not self.cl.hungryEffect:isPlaying() and data.isConscious then
+			self.cl.hungryEffect:start()
+		elseif ( data.stats.food > 5 or not data.isConscious ) and self.cl.hungryEffect:isPlaying() then
+			self.cl.hungryEffect:stop()
+		end
+		if data.stats.water <= 5 and not self.cl.thirstyEffect:isPlaying() and data.isConscious then
+			self.cl.thirstyEffect:start()
+		elseif ( data.stats.water > 5 or not data.isConscious ) and self.cl.thirstyEffect:isPlaying() then
+			self.cl.thirstyEffect:stop()
+		end
 
 
 		if data.stats.food <= 5 and self.cl.stats.food > 5 then
@@ -259,8 +264,14 @@ function SurvivalPlayer.cl_localPlayerUpdate( self, dt )
 		local character = self.player:getCharacter()
 		if character then
 			local homeOffset = sm.vec3.new(-2356,-2624,0)--NInd crash site coordinates
-			if g_NIndMapData["home"] then homeOffset = g_NIndMapData["home"] end
-			local text = ""
+			if sm.g_NIndMapData['zero'] then homeOffset = sm.g_NIndMapData['zero'] end
+			local rconf = sm.g_NIndMapData['config']
+			local radarDataT = ''
+			local compassT = ''
+			local angleT = ''
+			local distanceT = ''
+			local positionT = ''
+			local cellT = ''
 			local chPos = character.worldPosition
 			local direction = character.direction
 			local yaw = math.atan2( direction.y, direction.x )
@@ -274,19 +285,20 @@ function SurvivalPlayer.cl_localPlayerUpdate( self, dt )
 				if crs.z < 0 then aim = -aim end
 			end
 			if math.abs( yaw ) < math.pi * 0.25 then
-				text = text.." E"
+				compassT = 'E'
 			elseif math.abs( yaw ) > math.pi * 0.75 then
-				text = text.." W"
+				compassT = 'W'
 			elseif yaw >= math.pi * 0.25 then
-				text = text.." N"
+				compassT = 'N'
 			else
-				text = text.." S"
+				compassT = 'S'
 			end
-			text = text .. " A:" .. math.floor(math.deg(aim))
-			text = text .. " D:" .. math.floor((chPos - homeOffset):length())
-			text = text .. " P:(" .. math.floor( chPos.x )..","..math.floor( chPos.y )..")"
-			text = text .. " C:(" .. math.floor( chPos.x  / CellSize )..","..math.floor( chPos.y  / CellSize )..")"
-			self.cl.hud:setText( "NIndMap", text )
+			if rconf.compass then radarDataT = radarDataT..compassT..' ' end
+			if rconf.angle then radarDataT = radarDataT..'A:'..math.floor(math.deg(aim))..' ' end
+			if rconf.distance then radarDataT = radarDataT..'D:'..math.floor((chPos - homeOffset):length())..' ' end
+			if rconf.position then radarDataT = radarDataT..'P:('..math.floor(chPos.x)..','..math.floor(chPos.y)..') ' end
+			if rconf.cell then radarDataT = radarDataT..'C:('..math.floor(chPos.x / CellSize)..','..math.floor(chPos.y  / CellSize)..') ' end
+			self.cl.hud:setText('NIndMap', radarDataT)
 		end
 		--NInd edited to here end
 
@@ -362,6 +374,11 @@ function SurvivalPlayer.cl_localPlayerUpdate( self, dt )
 		self:cl_n_fillWater()
 	end
 
+	if character then
+		self.cl.underwaterEffect:setPosition( character.worldPosition )
+		self.cl.hungryEffect:setPosition( character.worldPosition )
+		self.cl.thirstyEffect:setPosition( character.worldPosition )
+	end
 end
 
 function SurvivalPlayer.client_onInteract( self, character, state )
@@ -922,7 +939,7 @@ end
 
 function SurvivalPlayer.cl_n_onLoot( self, params )
 	local message = "Picked up "..sm.shape.getShapeTitle( params.uuid )
-	if params.quantity > 1 then
+	if params.quantity and params.quantity > 1 then
 		message = message.." x"..params.quantity
 	end
 	sm.gui.displayAlertText( message, 2 )
