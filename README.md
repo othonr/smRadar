@@ -6,7 +6,7 @@ The Radar:
 
 ![Radar interface](/GitHubStuff/sm_02.jpg)
 
-## To install: 
+## To install: *[Detailed instructions](/GitHubStuff/INSTALL.md)*
 ```
 Just clone or download this repository
 Replace the files in your Scrap Mechanic instalation directory
