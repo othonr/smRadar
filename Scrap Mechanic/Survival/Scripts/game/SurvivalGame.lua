@@ -131,7 +131,7 @@ function SurvivalGame.client_onCreate( self )
 	end
 
 	--NInd Map command binder:
-	sm.game.bindChatCommand("/map", {{"string", "Command", true}, {"string", "Name", true}},"nind_mapcommand", "NInd Map")
+	sm.game.bindChatCommand("/map", {{"string", "Command", true}, {"string", "Name", true}},"nind_mapcommand", "NInd Radar")
 
 	self.cl = {}
 	self.cl.time = {}
@@ -420,11 +420,15 @@ function SurvivalGame.nind_mapcommand(self, params)
 			sm.g_NIndMapData['config'].position = not sm.g_NIndMapData['config'].position
 		elseif params[2] == 'cell' then
 			sm.g_NIndMapData['config'].cell = not sm.g_NIndMapData['config'].cell
+		elseif params[2] == 'all' then
+			sm.g_NIndMapData['config'] = {compass = true, angle = true, distance = true, position = true, cell = true}
+		elseif params[2] == 'none' then
+			sm.g_NIndMapData['config'] = {compass = false, angle = false, distance = false, position = false, cell = false}
 		elseif params[2] == 'crash' then
-			sm.g_NIndMapData['zero'] = sm.vec3.new(-2356,-2624,0)--Crash site coordinates
+			sm.g_NIndMapData['zero'] = sm.vec3.new(-2356,-2624,0) --Crash site coordinates
 		elseif params[2] == 'master' then
 			if params[3] == 'zero' then
-				self.network:sendToClients('nind_client',{'zero',position})
+				self.network:sendToClients('nind_client',{'zero', position})
 				self.network:sendToClients("client_showMessage",'Master moved zero')
 			end
 		else
