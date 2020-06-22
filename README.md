@@ -21,6 +21,8 @@ Replace the files in your Scrap Mechanic instalation directory
 - `/map distance` : Toggles the distance to home
 - `/map position` : Toggles the position of the character
 - `/map cell` : Toggles the current cell the player is at
+- `/map all` : Turns on the whole info display
+- `/map none` : Turns off the whole info display
 - `/map crash` : Homes the crash site
 - `/map master zero` : Will home all players to current position
 
