@@ -1,6 +1,5 @@
 # ***!!!THIS IS FOR THE BETA(TEST) VERSION!!!***
 # Scrap Mechanic Simple Radar
-#### For the Main Stable Release of the game go here: https://github.com/othonr/smRadar/
 
 The Radar:
 
