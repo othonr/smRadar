@@ -14,6 +14,7 @@ SurvivalGame.enableRestrictions = true
 
 local SyncInterval = 400 -- 400 ticks | 10 seconds
 
+
 function SurvivalGame.server_onCreate( self )
 	print( "SurvivalGame.server_onCreate" )
 	self.sv = {}
@@ -29,11 +30,10 @@ function SurvivalGame.server_onCreate( self )
 	self.data = nil
 
 	print( self.sv.saved.data )
-	--if self.sv.saved.data and self.sv.saved.data.dev then--NInd activated dev mode and added map global variables
-		g_NIndMapData = {}
-		--g_godMode = true
+	if self.sv.saved.data and self.sv.saved.data.dev then
+		g_godMode = true
 		g_survivalDev = true
-	--end
+	end
 
 	self:loadCraftingRecipes()
 
@@ -82,7 +82,7 @@ end
 
 function SurvivalGame.client_onCreate( self )
 	if g_survivalDev then
-		sm.game.bindChatCommand( "/ammo", { { "int", "quantity", true } }, "cl_onChatCommand", "Give ammo (default 40)" )
+		sm.game.bindChatCommand( "/ammo", { { "int", "quantity", true } }, "cl_onChatCommand", "Give ammo (default 50)" )
 		sm.game.bindChatCommand( "/spudgun", {}, "cl_onChatCommand", "Give the spudgun" )
 		sm.game.bindChatCommand( "/gatling", {}, "cl_onChatCommand", "Give the potato gatling gun" )
 		sm.game.bindChatCommand( "/shotgun", {}, "cl_onChatCommand", "Give the fries shotgun" )
@@ -128,11 +128,10 @@ function SurvivalGame.client_onCreate( self )
 		sm.game.bindChatCommand( "/printglobals", {}, "cl_onChatCommand", "Print all global lua variables" )
 		sm.game.bindChatCommand( "/clearpathnodes", {}, "cl_onChatCommand", "Clear all path nodes in overworld" )
 		sm.game.bindChatCommand( "/enablepathpotatoes", { { "bool", "enable", true } }, "cl_onChatCommand", "Creates path nodes at potato hits in overworld and links to previous node" )
-		--NInd Map command binder start
-		sm.game.bindChatCommand( "/map", {{ "string", "Command", true }, { "string", "Name", true }}, "cl_onChatCommand", "NInd Map, use 'home'" )
-		g_survivalDev = false
-		--NInd Map command binder end
 	end
+
+	--NInd Map command binder:
+	sm.game.bindChatCommand("/map", {{"string", "Command", true}, {"string", "Name", true}},"nind_mapcommand", "NInd Radar")
 
 	self.cl = {}
 	self.cl.time = {}
@@ -271,7 +270,6 @@ function SurvivalGame.client_showMessage( self, params )
 	sm.gui.chatMessage( params )
 end
 
-
 function SurvivalGame.cl_onChatCommand( self, params )
 	if params[1] == "/ammo" then
 		self.network:sendToServer( "sv_giveItem", { player = sm.localPlayer.getPlayer(), item = obj_plantables_potato, quantity = ( params[2] or 50 ) } )
@@ -398,15 +396,54 @@ function SurvivalGame.cl_onChatCommand( self, params )
 			}
 			self.network:sendToServer( "sv_importCreation", importParams )
 		end
-	--NInd Map command parser start
-	elseif params[1] == "/map" then
-		local position = sm.localPlayer.getPlayer().character.worldPosition
-		if params[2] == "home" then
-			g_NIndMapData["home"] = position
-		end
-	--NInd Map command parser end
 	else
 		self.network:sendToServer( "sv_onChatCommand", params )
+	end
+end
+
+--NInd Map chat command function:
+sm.g_NIndMapData = {}
+sm.g_NIndMapData['config'] = {compass = false, angle = false, distance = false, position = false, cell = false}
+function SurvivalGame.nind_mapcommand(self, params)
+	local ninderr = false
+	if params[1] == '/map' then
+		local position = sm.localPlayer.getPlayer().character.worldPosition
+		if params[2] == 'zero' then
+			sm.g_NIndMapData['zero'] = position
+		elseif params[2] == 'compass' then
+			sm.g_NIndMapData['config'].compass = not sm.g_NIndMapData['config'].compass
+		elseif params[2] == 'angle' then
+			sm.g_NIndMapData['config'].angle = not sm.g_NIndMapData['config'].angle
+		elseif params[2] == 'distance' then
+			sm.g_NIndMapData['config'].distance = not sm.g_NIndMapData['config'].distance
+		elseif params[2] == 'position' then
+			sm.g_NIndMapData['config'].position = not sm.g_NIndMapData['config'].position
+		elseif params[2] == 'cell' then
+			sm.g_NIndMapData['config'].cell = not sm.g_NIndMapData['config'].cell
+		elseif params[2] == 'all' then
+			sm.g_NIndMapData['config'] = {compass = true, angle = true, distance = true, position = true, cell = true}
+		elseif params[2] == 'none' then
+			sm.g_NIndMapData['config'] = {compass = false, angle = false, distance = false, position = false, cell = false}
+		elseif params[2] == 'crash' then
+			sm.g_NIndMapData['zero'] = sm.vec3.new(-2356,-2624,0) --Crash site coordinates
+		elseif params[2] == 'master' then
+			if params[3] == 'zero' then
+				self.network:sendToClients('nind_client',{'zero', position})
+				self.network:sendToClients("client_showMessage",'Master moved zero')
+			end
+		else
+			ninderr = true
+		end
+	else
+		ninderr = true
+	end
+	if ninderr then
+		self.network:sendToClients( "client_showMessage","You have to use one of the commands:\n'zero'\n'compass'\n'angle'\n'distance'\n'position'\n'cell'")
+	end
+end
+function SurvivalGame.nind_client(self, params)
+	if params[1] == 'zero' then
+		sm.g_NIndMapData['zero'] = params[2]
 	end
 end
 
@@ -565,8 +602,7 @@ function SurvivalGame.server_onPlayerJoined( self, player, newPlayer )
 			--Hotbar
 			sm.container.setItem( inventory, 0, tool_sledgehammer, 1 )
 			sm.container.setItem( inventory, 1, tool_spudgun, 1 )
-			sm.container.setItem( inventory, 6, obj_plantables_potato, 20 )
-			sm.container.setItem( inventory, 7, obj_plantables_potato, 20 )
+			sm.container.setItem( inventory, 7, obj_plantables_potato, 50 )
 			sm.container.setItem( inventory, 8, tool_lift, 1 )
 			sm.container.setItem( inventory, 9, tool_connect, 1 )
 
