@@ -1,4 +1,3 @@
-# ***!!!THIS IS FOR THE BETA(TEST) VERSION!!!***
 # Scrap Mechanic Simple Radar
 
 The Radar:
@@ -7,7 +6,7 @@ The Radar:
 
 ## To install: *[Detailed instructions](/GitHubStuff/INSTALL.md)*
 ```
-Just clone or download this repository
+Just clone or download this repository, or go to the steam workshop and subscribe to the mod https://steamcommunity.com/sharedfiles/filedetails/?id=2128739946
 Replace the files in your Scrap Mechanic instalation directory
 (BackUp your original ones first, obviously)
 ```
@@ -25,10 +24,6 @@ Replace the files in your Scrap Mechanic instalation directory
 - `/map crash` : Homes the crash site
 - `/map master zero` : Will home all players to current position
 
-I am planing on making a better interface with graphical elements, but i'm having a bit of trouble with it, since i'm confident in python but the game comes in lua, if you want to help me with that send me an email.
-
-Steam Workshop link: https://steamcommunity.com/sharedfiles/filedetails/?id=2128739946
-
 If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg on steam FC:**`53124465`**
 
 ### Road map for this tool (if the devs or someone else don't make their own before):
@@ -40,6 +35,8 @@ If you have questions DM on Discord at **`NightmaresInd#0828`** or send me a msg
 - Add enemy detection
 
 ### Changelog:
+- v1.1.1: **(Steam packaged)**
+  - No longer needs to download from github
 - v1.1.0: **(Beta/Test version)**
   - Code redo to allow customization and further commands
   - Maybe works with multiplayer? don't have anyone to test it with
