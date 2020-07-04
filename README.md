@@ -6,7 +6,8 @@ The Radar:
 
 ## To install: *[Detailed instructions](/GitHubStuff/INSTALL.md)*
 ```
-Just clone or download this repository, or go to the steam workshop and subscribe to the mod https://steamcommunity.com/sharedfiles/filedetails/?id=2128739946
+Just clone or download this repository,
+or go to the steam workshop and subscribe to the mod https://steamcommunity.com/sharedfiles/filedetails/?id=2128739946
 Replace the files in your Scrap Mechanic instalation directory
 (BackUp your original ones first, obviously)
 ```
